@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class AnchorPlacement : MonoBehaviour
 {
-    public GameObject anchorPrefab;
-    private GameObject instance;
+    public GameObject anchorInstance;
     // Start is called before the first frame update
     void Start()
     {
-        instance = Instantiate(anchorPrefab, Vector3.zero, Quaternion.identity);
-        instance.AddComponent<OVRSpatialAnchor>();
+        if (!anchorInstance.GetComponent<OVRSpatialAnchor>())
+        {
+            anchorInstance.AddComponent<OVRSpatialAnchor>();
+        }
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class AnchorPlacement : MonoBehaviour
        if (Physics.Raycast(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch).eulerAngles, out hit, Mathf.Infinity))
         {
             Debug.DrawRay(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch).eulerAngles * hit.distance, Color.red);
-            instance.transform.position = hit.point;
+            anchorInstance.transform.position = hit.point;
         }
     }
 }
