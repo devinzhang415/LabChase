@@ -10,8 +10,8 @@ public class SpawnAnchorFromRaySelect : MonoBehaviour
     public XRRayInteractor rayInteractor;
     public ARAnchorManager anchorManager;
     // Start is called before the first frame update
-    private ARAnchor currAnch;
-    private GameObject currObj;
+    private static ARAnchor currAnch;
+    private static GameObject currObj;
     void Start()
     {
         rayInteractor.selectEntered.AddListener(SpawnAnchor);
