@@ -886,6 +886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf231e023ae25844db5d06c04922a4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
   rayInteractor: {fileID: 629734958}
   anchorManager: {fileID: 6520291405866338746}
 --- !u!1 &712224710
@@ -1595,6 +1596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf231e023ae25844db5d06c04922a4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
   rayInteractor: {fileID: 719647962}
   anchorManager: {fileID: 6520291405866338746}
 --- !u!1 &769119076
@@ -1782,6 +1784,10 @@ PrefabInstance:
     - target: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
       propertyPath: m_Name
       value: Track
+      objectReference: {fileID: 0}
+    - target: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4233,7 +4239,7 @@ MonoBehaviour:
   <trackablesChanged>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  m_AnchorPrefab: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+  m_AnchorPrefab: {fileID: 0}
 --- !u!4 &6528530116241769232
 Transform:
   m_ObjectHideFlags: 0
@@ -4279,10 +4285,7 @@ MonoBehaviour:
   m_StartingGroupMembers:
   - {fileID: 0}
   - {fileID: 0}
-  m_StartingInteractionOverridesMap:
-  - groupMember: {fileID: 0}
-    overrideGroupMembers:
-    - {fileID: 0}
+  m_StartingInteractionOverridesMap: []
 --- !u!114 &6693052529520798653
 MonoBehaviour:
   m_ObjectHideFlags: 0

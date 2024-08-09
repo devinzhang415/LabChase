@@ -6,9 +6,11 @@ using UnityEngine.XR.ARFoundation;
 
 public class SpawnAnchorFromRaySelect : MonoBehaviour
 {
+    public GameObject prefab;
     public XRRayInteractor rayInteractor;
     public ARAnchorManager anchorManager;
     // Start is called before the first frame update
+    private ARAnchor curr;
     void Start()
     {
         rayInteractor.selectEntered.AddListener(SpawnAnchor);
@@ -17,6 +19,12 @@ public class SpawnAnchorFromRaySelect : MonoBehaviour
     // Update is called once per frame
     public async void SpawnAnchor(BaseInteractionEventArgs args) 
     {
+        // destroy old track
+        if (curr)
+        {
+            Destroy(curr);
+        }
+        
         rayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
 
         Pose hitPose = new Pose(hit.point, Quaternion.identity);
@@ -24,6 +32,13 @@ public class SpawnAnchorFromRaySelect : MonoBehaviour
         var result = await anchorManager.TryAddAnchorAsync(hitPose);
 
         bool success = result.TryGetResult(out var anchor);
+        
+        if (success)
+        {
+            GameObject spawnedPrefab = Instantiate(prefab, anchor.pose.position, anchor.pose.rotation);
+            spawnedPrefab.transform.parent = anchor.transform;
+            curr = anchor;
+        }
 
     }
 }
