@@ -1492,8 +1492,11 @@ MonoBehaviour:
   - {fileID: 4568886304358987041}
   - {fileID: 610977577910436621}
   toggleReference: {fileID: 2081878335764973557, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rotateReference: {fileID: -505404183239328624, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   path: {fileID: 7537824130932432662}
+  pathParent: {fileID: 8078140191319082428}
   moveSpeed: 1
+  rotationSpeed: 30
 --- !u!1 &8861425966234038273
 GameObject:
   m_ObjectHideFlags: 0

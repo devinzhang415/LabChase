@@ -1586,6 +1586,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate Path",
+                    "type": "Button",
+                    "id": "eb9c0604-0d50-412f-a260-3a9ae57191bb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1762,6 +1771,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleMesh",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cea9c64-41db-4092-b10b-467551632817",
+                    "path": "<OculusTouchController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate Path",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
