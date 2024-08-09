@@ -10,7 +10,8 @@ public class SpawnAnchorFromRaySelect : MonoBehaviour
     public XRRayInteractor rayInteractor;
     public ARAnchorManager anchorManager;
     // Start is called before the first frame update
-    private ARAnchor curr;
+    private ARAnchor currAnch;
+    private GameObject currObj;
     void Start()
     {
         rayInteractor.selectEntered.AddListener(SpawnAnchor);
@@ -20,9 +21,10 @@ public class SpawnAnchorFromRaySelect : MonoBehaviour
     public async void SpawnAnchor(BaseInteractionEventArgs args) 
     {
         // destroy old track
-        if (curr)
+        if (currAnch && currObj)
         {
-            Destroy(curr);
+            Destroy(currAnch);
+            Destroy(currObj);
         }
         
         rayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
@@ -37,7 +39,8 @@ public class SpawnAnchorFromRaySelect : MonoBehaviour
         {
             GameObject spawnedPrefab = Instantiate(prefab, anchor.pose.position, anchor.pose.rotation);
             spawnedPrefab.transform.parent = anchor.transform;
-            curr = anchor;
+            currAnch = anchor;
+            currObj = spawnedPrefab;
         }
 
     }
