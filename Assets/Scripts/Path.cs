@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace UnityEngine
 {
@@ -22,6 +25,7 @@ namespace UnityEngine
         [SerializeField]
         private float rotationSpeed = 30f;
 
+        private string filePath;
         private Transform mainCameraTransform;
         private int pointsIndex;
         private bool toggleState = true;
@@ -29,7 +33,11 @@ namespace UnityEngine
         // Start is called before the first frame update
         void Start()
         {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
 
+            filePath = System.IO.Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("HH-mm-ss") + ".csv");
+            Debug.Log("Filepath is: " + filePath);
             pointsIndex = 0;
             transform.position = Points[pointsIndex].transform.position;
 
@@ -38,7 +46,7 @@ namespace UnityEngine
             mainCameraTransform = GameObject.Find("XR Origin (XR Rig)/Camera Offset/Main Camera").transform;
             if (!mainCameraTransform)
             {
-                Debug.Log("No camera found");
+                Debug.LogError("No camera found");
             }
             toggleReference.action.started += TogglePathMesh;
             rotateReference.action.started += RotatePath;
@@ -68,7 +76,16 @@ namespace UnityEngine
                 pathParent.transform.Rotate(Vector3.up, rotationAmount);
             }
 
-            Debug.Log(Vector3.Distance(mainCameraTransform.position, this.transform.position));
+            float output = Vector3.Distance(mainCameraTransform.position, this.transform.position);
+            Debug.Log(output);
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(output.ToString() + ',');
+
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, sb.ToString());
+            else
+                File.AppendAllText(filePath, sb.ToString());
         }
         private void OnDestroy()
         {
