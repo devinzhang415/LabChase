@@ -18,30 +18,37 @@ public class SpawnAnchorFromRaySelect : MonoBehaviour
     }
 
     // Update is called once per frame
-    public async void SpawnAnchor(BaseInteractionEventArgs args) 
+    public void SpawnAnchor(BaseInteractionEventArgs args) 
     {
         // destroy old track
-        if (currAnch && currObj)
+        if (currObj)
         {
-            Destroy(currAnch);
+            //Destroy(currAnch);
             Destroy(currObj);
         }
         
-        rayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
-
-        Pose hitPose = new Pose(hit.point, Quaternion.identity);
-
-        var result = await anchorManager.TryAddAnchorAsync(hitPose);
-
-        bool success = result.TryGetResult(out var anchor);
-        
-        if (success)
+        if (rayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
         {
-            GameObject spawnedPrefab = Instantiate(prefab, anchor.pose.position, anchor.pose.rotation);
+
+            GameObject instance = Instantiate(prefab, hit.point, Quaternion.identity);
+            currObj = instance;
+            if (instance.GetComponent<ARAnchor>() == null)
+            {
+                instance.AddComponent<ARAnchor>();
+            }
+        }
+
+        /*Pose hitPose = new Pose(hit.point, Quaternion.identity);
+        
+        var anchor = anchorManager.AddAnchor(hitPose);
+
+        if (anchor)
+        {
+            GameObject spawnedPrefab = Instantiate(prefab, anchor.transform.position, anchor.transform.rotation);
             spawnedPrefab.transform.parent = anchor.transform;
             currAnch = anchor;
             currObj = spawnedPrefab;
-        }
+        }*/
 
     }
 }
