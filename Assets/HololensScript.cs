@@ -73,12 +73,12 @@ public class HololensScript : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
     }
