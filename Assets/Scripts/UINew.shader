@@ -108,7 +108,7 @@ Shader "UI/Default"
                     clip(color.a - 0.001);
                     #endif
 
-                    if (unity_StereoEyeIndex == 0) {
+                    if (unity_StereoEyeIndex == 1) {
                         color.a = 0;
                     }
 
