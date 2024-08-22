@@ -1,39 +1,116 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System.IO;
+using System.Runtime.CompilerServices;
 
-public class Path : MonoBehaviour
+namespace UnityEngine
 {
-    public Transform[] Points;
 
-    [SerializeField]
-    private float moveSpeed;
 
-    private int pointsIndex;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Path : MonoBehaviour
     {
-        pointsIndex = 0;
-        transform.position = Points[pointsIndex].transform.position;
-    }
+        public Transform[] Points;
+        public InputActionReference toggleReference;
+        public InputActionReference rotateReference;
+        public GameObject path;
+        public GameObject pathParent;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(pointsIndex <= Points.Length - 1)
+        [SerializeField]
+        private float moveSpeed;
+        [SerializeField]
+        private float rotationSpeed = 30f;
+
+        private string filePath;
+        private Transform mainCameraTransform;
+        private int pointsIndex;
+        private bool toggleState = true;
+        private bool isRotating = false;
+        // Start is called before the first frame update
+        void Start()
         {
-            transform.position = Vector3.MoveTowards(transform.position, Points[pointsIndex].transform.position, moveSpeed * Time.deltaTime);
+            if (File.Exists(filePath))
+                File.Delete(filePath);
 
-            if (transform.position == Points[pointsIndex].transform.position)
+            filePath = System.IO.Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("HH-mm-ss") + ".csv");
+            Debug.Log("Filepath is: " + filePath);
+            pointsIndex = 0;
+            transform.position = Points[pointsIndex].transform.position;
+
+            isRotating = false;
+            toggleState = true;
+            mainCameraTransform = GameObject.Find("XR Origin (XR Rig)/Camera Offset/Main Camera").transform;
+            if (!mainCameraTransform)
             {
-                pointsIndex++;
+                Debug.LogError("No camera found");
+            }
+            toggleReference.action.started += TogglePathMesh;
+            rotateReference.action.started += RotatePath;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (pointsIndex <= Points.Length - 1)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, Points[pointsIndex].transform.position, moveSpeed * Time.deltaTime);
+
+                if (transform.position == Points[pointsIndex].transform.position)
+                {
+                    pointsIndex++;
+                }
+
+                if (pointsIndex == Points.Length)
+                {
+                    pointsIndex = 0;
+                }
             }
 
-            if (pointsIndex == Points.Length)
+            if (isRotating)
             {
-                pointsIndex = 0;
+                float rotationAmount = rotationSpeed * Time.deltaTime;
+                pathParent.transform.Rotate(Vector3.up, rotationAmount);
             }
+
+            float output = Vector3.Distance(mainCameraTransform.position, this.transform.position);
+            Debug.Log(output);
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(output.ToString() + ',');
+
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, sb.ToString());
+            else
+                File.AppendAllText(filePath, sb.ToString());
+        }
+        private void OnDestroy()
+        {
+            toggleReference.action.started -= TogglePathMesh;
+            rotateReference.action.performed -= RotatePath;
+        }
+
+        private void TogglePathMesh(InputAction.CallbackContext context)
+        {
+            if (toggleState)
+            {
+                path.SetActive(false);
+                toggleState = !toggleState;
+            }
+            else
+            {
+                path.SetActive(true);
+                toggleState = !toggleState;
+            }
+        }
+
+        private void RotatePath(InputAction.CallbackContext context)
+        {
+            isRotating = !isRotating;
+
         }
     }
 }
