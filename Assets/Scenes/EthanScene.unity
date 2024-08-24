@@ -1785,6 +1785,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2943812834957510201, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+      propertyPath: pathStart
+      value: 
+      objectReference: {fileID: 1241364535}
     - target: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
       propertyPath: m_Name
       value: Track
@@ -1798,6 +1802,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+--- !u!1 &1241364535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3822847215668883985, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+  m_PrefabInstance: {fileID: 1241364534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1241364537
 MonoBehaviour:
   m_ObjectHideFlags: 0
