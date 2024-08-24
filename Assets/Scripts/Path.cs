@@ -20,6 +20,8 @@ namespace UnityEngine
         public GameObject path;
         public GameObject pathParent;
 
+        public GameObject pathStart;
+
         [SerializeField]
         private float moveSpeed;
         [SerializeField]
@@ -78,9 +80,17 @@ namespace UnityEngine
 
             float output = Vector3.Distance(mainCameraTransform.position, this.transform.position);
             Debug.Log(output);
-            StringBuilder sb = new StringBuilder();
+            
+            string outputString = output.ToString() + ',';
 
-            sb.AppendLine(output.ToString() + ',');
+            float distanceFromStart = Vector3.Distance(mainCameraTransform.position, pathStart.transform.position);
+            if (distanceFromStart <= 10)
+            {
+                outputString += System.DateTime.Now.ToString("HH-mm-ss") + ',';
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(outputString);
 
             if (!File.Exists(filePath))
                 File.WriteAllText(filePath, sb.ToString());
