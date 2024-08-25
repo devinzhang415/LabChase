@@ -26,6 +26,8 @@ namespace UnityEngine
         private float moveSpeed;
         [SerializeField]
         private float rotationSpeed = 30f;
+        [SerializeField]
+        private float startThreshold = 0.1f;
 
         private string filePath;
         private Transform mainCameraTransform;
@@ -84,11 +86,11 @@ namespace UnityEngine
             string outputString = output.ToString() + ',';
 
             float distanceFromStart = Vector3.Distance(mainCameraTransform.position, pathStart.transform.position);
-            if (distanceFromStart <= 10)
+            if (distanceFromStart <= startThreshold)
             {
-                outputString += System.DateTime.Now.ToString("HH-mm-ss") + ',';
+                outputString = "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
             }
-
+            //only executes this part of the code when outside of yth
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(outputString);
 
@@ -96,6 +98,8 @@ namespace UnityEngine
                 File.WriteAllText(filePath, sb.ToString());
             else
                 File.AppendAllText(filePath, sb.ToString());
+
+
         }
         private void OnDestroy()
         {
