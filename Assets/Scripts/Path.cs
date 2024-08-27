@@ -21,6 +21,7 @@ namespace UnityEngine
         public GameObject pathParent;
 
         public GameObject pathStart;
+        public displayObject displayObject;
 
         [SerializeField]
         private float moveSpeed;
@@ -80,16 +81,29 @@ namespace UnityEngine
                 pathParent.transform.Rotate(Vector3.up, rotationAmount);
             }
 
-            float output = Vector3.Distance(mainCameraTransform.position, this.transform.position);
-            Debug.Log(output);
-            
-            string outputString = output.ToString() + ',';
+            string outputString = "";
+
+            float distance = Vector3.Distance(mainCameraTransform.position, this.transform.position);
+            Debug.Log(distance);
+            outputString += distance.ToString() + ',';
 
             float distanceFromStart = Vector3.Distance(mainCameraTransform.position, pathStart.transform.position);
             if (distanceFromStart <= startThreshold)
             {
-                outputString = "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
+                outputString += "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
             }
+
+            if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOn)
+            {
+                outputString += "Flashing On" + ',';
+                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
+            }
+            else if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOff)
+            {
+                outputString += "Flashing Off" + ',';
+                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
+            }
+
             //only executes this part of the code when outside of yth
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(outputString);

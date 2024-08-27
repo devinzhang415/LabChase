@@ -1,9 +1,8 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class displayObject : MonoBehaviour
 {
-
-
     [Header("Images")]
     [SerializeField] private GameObject[] images;
     [SerializeField] private GameObject whiteImage;
@@ -16,6 +15,14 @@ public class displayObject : MonoBehaviour
     private Vector3 changeVector;
     private int imageIndex;
     private bool isFlashing;
+
+    public enum FlashingToggle
+    {
+        NoToggle,
+        FlashingOff,
+        FlashingOn,
+    }
+    public FlashingToggle flashingToggle = FlashingToggle.NoToggle;
 
     void Start()
     {
@@ -82,12 +89,14 @@ public class displayObject : MonoBehaviour
             images[imageIndex].SetActive(false);
             whiteImage.SetActive(true);
             isFlashing = true;
+            flashingToggle = FlashingToggle.FlashingOn;
         }
         else
         {
             images[imageIndex].SetActive(true);
             whiteImage.SetActive(false);
             isFlashing = false;
+            flashingToggle = FlashingToggle.FlashingOff;
         }
     }
 
