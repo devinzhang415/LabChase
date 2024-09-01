@@ -7,81 +7,93 @@ public class displayObject : MonoBehaviour
     [SerializeField] private GameObject[] images;
     [SerializeField] private GameObject whiteImage;
 
-    [Header("Choose a magnitute of Movement")]
-    [SerializeField] private int movementMagnitute = 1;
-    [Header("Choose a magnitute of scale")]
-    [SerializeField] private float scaleMagnitute = 1f;
+    [Header("Choose a magnitude of Movement")]
+    [SerializeField] private int movementMagnitude = 1;
+    [Header("Choose a magnitude of scale")]
+    [SerializeField] private float scaleMagnitude = 1f;
 
     private Vector3 changeVector;
     private int imageIndex;
     private bool isFlashing;
 
+    // Enum for flashing toggle states
     public enum FlashingToggle
     {
         NoToggle,
         FlashingOff,
         FlashingOn,
     }
+ 
     public FlashingToggle flashingToggle = FlashingToggle.NoToggle;
+    
 
     void Start()
     {
         imageIndex = 0;
         isFlashing = false;
+
+        // Initialize images
         for (int i = 1; i < images.Length; i++)
         {
             images[i].SetActive(false);
         }
         images[0].SetActive(true);
         whiteImage.SetActive(false);
-
     }
-
 
     void Update()
     {
         flash();
     }
 
-
+    // Movement methods
     public void moveRight()
     {
         changeVector = new Vector3(.1f, 0, 0);
-        gameObject.transform.position += movementMagnitute * changeVector;
+        gameObject.transform.position += movementMagnitude * changeVector;
     }
+
     public void moveRightJ()
     {
         changeVector = new Vector3(.1f, 0, 0);
-        gameObject.transform.position += movementMagnitute * changeVector * 10;
+        gameObject.transform.position += movementMagnitude * changeVector * 10;
     }
+
     public void moveLeft()
     {
         changeVector = new Vector3(-.1f, 0, 0);
-        gameObject.transform.position += movementMagnitute * changeVector;
+        gameObject.transform.position += movementMagnitude * changeVector;
     }
-    public void moveLeftJ() {
+
+    public void moveLeftJ()
+    {
         changeVector = new Vector3(-.1f, 0, 0);
-        gameObject.transform.position += movementMagnitute * changeVector * 10;
+        gameObject.transform.position += movementMagnitude * changeVector * 10;
     }
+
     public void moveUp()
     {
         changeVector = new Vector3(0, .1f, 0);
-        gameObject.transform.position += movementMagnitute * changeVector;
+        gameObject.transform.position += movementMagnitude * changeVector;
     }
+
     public void moveDown()
     {
         changeVector = new Vector3(0, -.1f, 0);
-        gameObject.transform.position += movementMagnitute * changeVector;
-    }
-    public void scaleUp()
-    {
-        gameObject.transform.localScale *= scaleMagnitute;
-    }
-    public void scaleDown()
-    {
-        gameObject.transform.localScale /= scaleMagnitute;
+        gameObject.transform.position += movementMagnitude * changeVector;
     }
 
+    public void scaleUp()
+    {
+        gameObject.transform.localScale *= scaleMagnitude;
+    }
+
+    public void scaleDown()
+    {
+        gameObject.transform.localScale /= scaleMagnitude;
+    }
+
+    // Method to toggle flashing
     public void toggleFlashing()
     {
         if (!isFlashing)
@@ -100,6 +112,7 @@ public class displayObject : MonoBehaviour
         }
     }
 
+    // Flashing effect
     private void flash()
     {
         if (isFlashing)
@@ -107,6 +120,8 @@ public class displayObject : MonoBehaviour
             whiteImage.SetActive(!whiteImage.activeSelf);
         }
     }
+
+    // Methods to cycle through images
     public void nextImage()
     {
         if (imageIndex + 1 >= images.Length)
@@ -119,8 +134,8 @@ public class displayObject : MonoBehaviour
             imageIndex++;
             images[imageIndex].SetActive(true);
         }
-
     }
+
     public void previousImage()
     {
         if (imageIndex - 1 < 0)
@@ -133,7 +148,5 @@ public class displayObject : MonoBehaviour
             imageIndex--;
             images[imageIndex].SetActive(true);
         }
-
     }
-    
 }

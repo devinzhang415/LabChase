@@ -35,6 +35,7 @@ namespace UnityEngine
         private int pointsIndex;
         private bool toggleState = true;
         private bool isRotating = false;
+        private float originalMoveSpeed; // To store the original movement speed
         // Start is called before the first frame update
         void Start()
         {
@@ -93,17 +94,7 @@ namespace UnityEngine
                 outputString += "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
             }
 
-            if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOn)
-            {
-                outputString += "Flashing On" + ',';
-                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
-            }
-            else if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOff)
-            {
-                outputString += "Flashing Off" + ',';
-                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
-            }
-
+            
             //only executes this part of the code when outside of yth
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(outputString);
@@ -139,6 +130,18 @@ namespace UnityEngine
         {
             isRotating = !isRotating;
 
+        }
+
+        public void toggleTrackerMovement() // New method to toggle movement
+        {
+            if (moveSpeed > 0)
+            {
+                moveSpeed = 0f; // Stop movement by setting speed to zero
+            }
+            else
+            {
+                moveSpeed = originalMoveSpeed; // Resume movement by restoring original speed
+            }
         }
     }
 }
