@@ -31,21 +31,24 @@ namespace UnityEngine
         private float startThreshold = 0.1f;
 
         private string filePath;
+        private string outputString;
         private Transform mainCameraTransform;
         private int pointsIndex;
         private bool toggleState = true;
         private bool isRotating = false;
         private bool isMoving = true;
+        private bool previousMovingState = true;
         void Start()
         {
             if (File.Exists(filePath))
                 File.Delete(filePath);
-            isMoving = true;
+            isMoving = false;
+            previousMovingState = isMoving;
             filePath = System.IO.Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("HH-mm-ss") + ".csv");
             Debug.Log("Filepath is: " + filePath);
             pointsIndex = 0;
             transform.position = Points[pointsIndex].transform.position;
-
+            outputString = "";
             isRotating = false;
             toggleState = true;
             mainCameraTransform = GameObject.Find("XR Origin (XR Rig)/Camera Offset/Main Camera").transform;
@@ -85,7 +88,7 @@ namespace UnityEngine
                 pathParent.transform.Rotate(Vector3.up, rotationAmount);
             }
 
-            string outputString = "";
+            outputString = "";
 
             float distance = Vector3.Distance(mainCameraTransform.position, this.transform.position);
             Debug.Log(distance);
@@ -97,6 +100,7 @@ namespace UnityEngine
                 outputString += "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
             }
 
+
             if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOn)
             {
                 outputString += "Flashing On" + ',';
@@ -107,7 +111,12 @@ namespace UnityEngine
                 outputString += "Flashing Off" + ',';
                 displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
             }
-
+            if (isMoving != previousMovingState)
+            {
+                //if the moving state has changed then add it to the output string
+                outputString += (isMoving) ? "Start" : "Stop";
+                previousMovingState = isMoving;
+            }
             //only executes this part of the code when outside of yth
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(outputString);

@@ -7,8 +7,8 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/Scenes/EthanScene.unity
-    guid: 55daccc09a3b69647bbab145b54a3ab3
-  - enabled: 1
+    guid: b708ac0c00f7f7348aaae0bca38be147
+  - enabled: 0
     path: Assets/Scenes/EthanScene 1.unity
     guid: 678ea13ebc951564bb7bfcaba72996cc
   m_configObjects:
