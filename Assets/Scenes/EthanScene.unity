@@ -1789,6 +1789,10 @@ PrefabInstance:
       propertyPath: pathStart
       value: 
       objectReference: {fileID: 1241364535}
+    - target: {fileID: 2943812834957510201, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+      propertyPath: displayObject
+      value: 
+      objectReference: {fileID: 1966215112}
     - target: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
       propertyPath: m_Name
       value: Track
@@ -1805,6 +1809,11 @@ PrefabInstance:
 --- !u!1 &1241364535 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3822847215668883985, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+  m_PrefabInstance: {fileID: 1241364534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1241364536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8761493855442865538, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
   m_PrefabInstance: {fileID: 1241364534}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1241364537
@@ -2305,6 +2314,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 9397257e2c6391541969ff0333444d1e, type: 2}
     - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
+      propertyPath: tracker
+      value: 
+      objectReference: {fileID: 1241364536}
+    - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
       propertyPath: images.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2468,6 +2481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageObject: {fileID: 441448743}
   displayObject: {fileID: 1966215112}
+  tracker: {fileID: 1241364536}
 --- !u!1 &2059223537
 GameObject:
   m_ObjectHideFlags: 0

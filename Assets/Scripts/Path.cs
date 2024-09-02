@@ -35,13 +35,12 @@ namespace UnityEngine
         private int pointsIndex;
         private bool toggleState = true;
         private bool isRotating = false;
-        private float originalMoveSpeed; // To store the original movement speed
-        // Start is called before the first frame update
+        private bool isMoving = true;
         void Start()
         {
             if (File.Exists(filePath))
                 File.Delete(filePath);
-
+            isMoving = true;
             filePath = System.IO.Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("HH-mm-ss") + ".csv");
             Debug.Log("Filepath is: " + filePath);
             pointsIndex = 0;
@@ -63,7 +62,11 @@ namespace UnityEngine
         {
             if (pointsIndex <= Points.Length - 1)
             {
-                transform.position = Vector3.MoveTowards(transform.position, Points[pointsIndex].transform.position, moveSpeed * Time.deltaTime);
+                if (isMoving)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, Points[pointsIndex].transform.position, moveSpeed * Time.deltaTime);
+                }
+                
 
                 if (transform.position == Points[pointsIndex].transform.position)
                 {
@@ -144,14 +147,7 @@ namespace UnityEngine
 
         public void toggleTrackerMovement() // New method to toggle movement
         {
-            if (moveSpeed > 0)
-            {
-                moveSpeed = 0f; // Stop movement by setting speed to zero
-            }
-            else
-            {
-                moveSpeed = originalMoveSpeed; // Resume movement by restoring original speed
-            }
+            isMoving = !isMoving;
         }
     }
 }
