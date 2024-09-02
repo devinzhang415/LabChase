@@ -94,7 +94,17 @@ namespace UnityEngine
                 outputString += "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
             }
 
-            
+            if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOn)
+            {
+                outputString += "Flashing On" + ',';
+                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
+            }
+            else if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOff)
+            {
+                outputString += "Flashing Off" + ',';
+                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
+            }
+
             //only executes this part of the code when outside of yth
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(outputString);
