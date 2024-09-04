@@ -10,7 +10,6 @@ public class HololensScript : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public GameObject imageObject;
     public displayObject displayObject;
-    public GameObject tracker;
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +39,7 @@ public class HololensScript : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             case Utility.PauseTrackerCode:
                 // Get the Path component from the tracker GameObject
-                Path pathScript = tracker.GetComponent<Path>();
-                if (pathScript != null)
-                {
-                    // Call the trackerToggleMovement method to pause/resume movement
-                    pathScript.toggleTrackerMovement();
-                }
+                Path.toggleTrackerMovement();
                 break;
             case Utility.MoveLeftEventCode:
                 displayObject.moveLeft();

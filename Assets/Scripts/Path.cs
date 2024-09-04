@@ -36,8 +36,8 @@ namespace UnityEngine
         private int pointsIndex;
         private bool toggleState = true;
         private bool isRotating = false;
-        private bool isMoving = true;
-        private bool previousMovingState = true;
+        private static bool isMoving = true;
+        private static bool previousMovingState = true;
         void Start()
         {
             if (File.Exists(filePath))
@@ -154,7 +154,7 @@ namespace UnityEngine
 
         }
 
-        public void toggleTrackerMovement() // New method to toggle movement
+        public static void toggleTrackerMovement() // New method to toggle movement
         {
             isMoving = !isMoving;
         }
