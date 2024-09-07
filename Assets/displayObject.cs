@@ -7,6 +7,8 @@ public class displayObject : MonoBehaviour
     [SerializeField] private GameObject[] images;
     [SerializeField] private GameObject whiteImage;
 
+    [Header("Relative Transform")]
+    [SerializeField] private Transform XROrigin;
     [Header("Choose a magnitude of Movement")]
     [SerializeField] private int movementMagnitude = 1;
     [Header("Choose a magnitude of scale")]
@@ -49,37 +51,37 @@ public class displayObject : MonoBehaviour
     // Movement methods
     public void moveRight()
     {
-        changeVector = new Vector3(.1f, 0, 0);
+        changeVector = XROrigin.right * .1f;
         gameObject.transform.position += movementMagnitude * changeVector;
     }
 
     public void moveRightJ()
     {
-        changeVector = new Vector3(.1f, 0, 0);
+        changeVector = XROrigin.right * .1f;
         gameObject.transform.position += movementMagnitude * changeVector * 10;
     }
 
     public void moveLeft()
     {
-        changeVector = new Vector3(-.1f, 0, 0);
+        changeVector = XROrigin.right * -.1f;
         gameObject.transform.position += movementMagnitude * changeVector;
     }
 
     public void moveLeftJ()
     {
-        changeVector = new Vector3(-.1f, 0, 0);
+        changeVector = XROrigin.right * -.1f;
         gameObject.transform.position += movementMagnitude * changeVector * 10;
     }
 
     public void moveUp()
     {
-        changeVector = new Vector3(0, .1f, 0);
+        changeVector = XROrigin.up * .1f;
         gameObject.transform.position += movementMagnitude * changeVector;
     }
 
     public void moveDown()
     {
-        changeVector = new Vector3(0, -.1f, 0);
+        changeVector = XROrigin.up * -.1f;
         gameObject.transform.position += movementMagnitude * changeVector;
     }
 

@@ -2318,6 +2318,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1241364536}
     - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
+      propertyPath: XROrigin
+      value: 
+      objectReference: {fileID: 1717954560786748952}
+    - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
       propertyPath: images.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2481,7 +2485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageObject: {fileID: 441448743}
   displayObject: {fileID: 1966215112}
-  tracker: {fileID: 1241364536}
 --- !u!1 &2059223537
 GameObject:
   m_ObjectHideFlags: 0
