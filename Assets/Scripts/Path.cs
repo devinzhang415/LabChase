@@ -56,6 +56,10 @@ namespace UnityEngine
             {
                 Debug.LogError("No camera found");
             }
+            if (!displayObject)
+            {
+                displayObject = GameObject.Find("XR Origin (XR Rig)/Canvas/Holder").GetComponent<displayObject>();
+            }
             toggleReference.action.started += TogglePathMesh;
             rotateReference.action.started += RotatePath;
         }
