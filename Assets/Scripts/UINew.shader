@@ -86,6 +86,7 @@ Shader "UI/Default"
                 {
                     v2f OUT;
                     UNITY_SETUP_INSTANCE_ID(v);
+                    UNITY_INITIALIZE_OUTPUT(v2f, OUT);
                     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
                     OUT.worldPosition = v.vertex;
                     OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
@@ -99,7 +100,7 @@ Shader "UI/Default"
                 fixed4 frag(v2f IN) : SV_Target
                 {
                     half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
-
+                    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN); //Insert
                     #ifdef UNITY_UI_CLIP_RECT
                     color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
                     #endif
@@ -108,7 +109,7 @@ Shader "UI/Default"
                     clip(color.a - 0.001);
                     #endif
 
-                    if (unity_StereoEyeIndex == 1) {
+                    if (unity_StereoEyeIndex == 0) {
                         color.a = 0;
                     }
 
