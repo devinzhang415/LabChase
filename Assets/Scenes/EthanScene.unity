@@ -1793,6 +1793,18 @@ PrefabInstance:
       propertyPath: displayObject
       value: 
       objectReference: {fileID: 1966215112}
+    - target: {fileID: 4523413910483344747, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523413910483344747, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523413910483344747, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 5100317341875876444, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
       propertyPath: m_Radius
       value: 0.5
