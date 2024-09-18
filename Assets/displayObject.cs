@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class displayObject : MonoBehaviour
 {
@@ -13,10 +14,12 @@ public class displayObject : MonoBehaviour
     [SerializeField] private int movementMagnitude = 1;
     [Header("Choose a magnitude of scale")]
     [SerializeField] private float scaleMagnitude = 1f;
+    [SerializeField] private float flashSpeed = 0.01f;
 
     private Vector3 changeVector;
     private int imageIndex;
     private bool isFlashing;
+    private bool flashInstanceTracker;
 
     // Enum for flashing toggle states
     public enum FlashingToggle
@@ -45,7 +48,7 @@ public class displayObject : MonoBehaviour
 
     void Update()
     {
-        flash();
+
     }
 
     // Movement methods
@@ -104,6 +107,8 @@ public class displayObject : MonoBehaviour
             whiteImage.SetActive(true);
             isFlashing = true;
             flashingToggle = FlashingToggle.FlashingOn;
+            StartCoroutine(flash());
+
         }
         else
         {
@@ -111,16 +116,22 @@ public class displayObject : MonoBehaviour
             whiteImage.SetActive(false);
             isFlashing = false;
             flashingToggle = FlashingToggle.FlashingOff;
+            StopCoroutine(flash());
+
         }
     }
 
     // Flashing effect
-    private void flash()
+    private IEnumerator flash()
     {
-        if (isFlashing)
+        //toggles white every x seconds
+        while (isFlashing)
         {
+            yield return new WaitForSeconds(flashSpeed);
             whiteImage.SetActive(!whiteImage.activeSelf);
         }
+        // on shutdown ensures that image returns to blank
+        whiteImage.SetActive(false);
     }
 
     // Methods to cycle through images
