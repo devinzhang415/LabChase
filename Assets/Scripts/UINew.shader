@@ -110,7 +110,13 @@ Shader "UI/Default"
                     #endif
 
                     if (unity_StereoEyeIndex == 0) {
+                        color.r = 0;
+                        color.g = 0;
+                        color.b = 0;
                         color.a = 0;
+                    }
+                    if (unity_StereoEyeIndex == 1) {
+
                     }
 
                     return color;
