@@ -112,6 +112,9 @@ Shader "UI/Default"
                     if (unity_StereoEyeIndex == 1) {
                         color.a = 0;
                     }
+                    if (unity_StereoEyeIndex == 1) {
+
+                    }
 
                     return color;
                 }
