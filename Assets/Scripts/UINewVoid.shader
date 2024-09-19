@@ -1,10 +1,10 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "UI/Default"
+Shader "UI/Void"
 {
     Properties
     {
-        [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
+        [PerRendererData] _MainTex("Sprite Texture", 2D) = "black" {}
         _Color("Tint", Color) = (1,1,1,1)
 
         _StencilComp("Stencil Comparison", Float) = 8
@@ -108,7 +108,7 @@ Shader "UI/Default"
                     clip(color.a - 0.001);
                     #endif
 
-                    if (unity_StereoEyeIndex == 0) {
+                    if (unity_StereoEyeIndex == 1) {
                         color.a = 0;
                     }
 
