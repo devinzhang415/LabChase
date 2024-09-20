@@ -7,6 +7,7 @@ public class displayObject : MonoBehaviour
     [Header("Images")]
     [SerializeField] private GameObject[] images;
     [SerializeField] private GameObject whiteImage;
+    [SerializeField] private GameObject blackScreen;
 
     [Header("Relative Transform")]
     [SerializeField] private Transform XROrigin;
@@ -20,6 +21,7 @@ public class displayObject : MonoBehaviour
     private int imageIndex;
     private bool isFlashing;
     private bool flashInstanceTracker;
+    private bool isOneEye;
 
     // Enum for flashing toggle states
     public enum FlashingToggle
@@ -36,6 +38,7 @@ public class displayObject : MonoBehaviour
     {
         imageIndex = 0;
         isFlashing = false;
+        isOneEye = false;
 
         // Initialize images
         for (int i = 1; i < images.Length; i++)
@@ -44,6 +47,7 @@ public class displayObject : MonoBehaviour
         }
         images[0].SetActive(true);
         whiteImage.SetActive(false);
+        blackScreen.SetActive(false);
     }
 
     void Update()
@@ -161,5 +165,11 @@ public class displayObject : MonoBehaviour
             imageIndex--;
             images[imageIndex].SetActive(true);
         }
+    }
+
+    public void toggleOneEye()
+    {
+        isOneEye = !isOneEye;
+        blackScreen.SetActive(isOneEye);
     }
 }

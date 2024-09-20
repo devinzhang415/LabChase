@@ -71,8 +71,11 @@ public class HololensScript : MonoBehaviourPunCallbacks, IOnEventCallback
             case Utility.MoveLeftJEventCode:
                 displayObject.moveLeftJ();
                 break;
-             case Utility.MoveRightJEventCode:
+            case Utility.MoveRightJEventCode:
                 displayObject.moveRightJ();
+                break;
+            case Utility.ToggleOneEyeEventCode:
+                displayObject.toggleOneEye();
                 break;
         }
     }
