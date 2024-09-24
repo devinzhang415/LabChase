@@ -77,6 +77,9 @@ public class HololensScript : MonoBehaviourPunCallbacks, IOnEventCallback
             case Utility.ToggleOneEyeEventCode:
                 displayObject.toggleOneEye();
                 break;
+            case Utility.ToggleOneEyeFlashEventCode:
+                displayObject.toggleOneEyeFlash();
+                break;
         }
     }
 

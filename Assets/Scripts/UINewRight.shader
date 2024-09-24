@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "UI/Default"
+Shader "UIRight"
 {
     Properties
     {
@@ -108,7 +108,7 @@ Shader "UI/Default"
                     clip(color.a - 0.001);
                     #endif
 
-                    if (unity_StereoEyeIndex == 0) {
+                    if (unity_StereoEyeIndex == 1) {
                         color.a = 0;
                     }
 
