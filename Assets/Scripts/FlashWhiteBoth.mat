@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlashWhiteLeft
-  m_Shader: {fileID: 4800000, guid: 2d9b186b47ebfe34ba1aaf6bbe9a199e, type: 3}
+  m_Name: FlashWhiteBoth
+  m_Shader: {fileID: 4800000, guid: d3af228abe8563c4485e3506a111579e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

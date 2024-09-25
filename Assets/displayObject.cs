@@ -9,6 +9,8 @@ public class displayObject : MonoBehaviour
     [SerializeField] private GameObject whiteImageL;
     [SerializeField] private GameObject whiteImageR;
     [SerializeField] private GameObject blackScreen;
+    [SerializeField] private GameObject CenterLine;
+    [SerializeField] private GameObject GreenLine;
 
     [Header("Relative Transform")]
     [SerializeField] private Transform XROrigin;
@@ -110,12 +112,17 @@ public class displayObject : MonoBehaviour
     {
         if (!isFlashing)
         {
-            images[imageIndex].SetActive(false);
-            whiteImageL.SetActive(true);
-            if (!isFlashOneEye)
+
+/*           if (!isFlashOneEye)
             {
+                whiteImageL.SetActive(true);
+                whiteImageR.SetActive(false);
+
+            } else
+            {
+                whiteImageL.SetActive(false);
                 whiteImageR.SetActive(true);
-            }
+            }*/
             isFlashing = true;
             flashingToggle = FlashingToggle.FlashingOn;
             StartCoroutine(flash());
@@ -123,7 +130,6 @@ public class displayObject : MonoBehaviour
         }
         else
         {
-            images[imageIndex].SetActive(true);
             whiteImageL.SetActive(false);
             whiteImageR.SetActive(false);
             isFlashing = false;
@@ -140,10 +146,13 @@ public class displayObject : MonoBehaviour
         while (isFlashing)
         {
             yield return new WaitForSeconds(flashSpeed);
-            whiteImageL.SetActive(!whiteImageL.activeSelf);
+            
             if (!isFlashOneEye)
             {
-                whiteImageR.SetActive(!whiteImageL.activeSelf);
+                whiteImageL.SetActive(!whiteImageL.activeSelf);
+            } else
+            {
+                whiteImageR.SetActive(!whiteImageR.activeSelf);
             }
         }
         // on shutdown ensures that image returns to blank
@@ -154,16 +163,8 @@ public class displayObject : MonoBehaviour
     // Methods to cycle through images
     public void nextImage()
     {
-        if (imageIndex + 1 >= images.Length)
-        {
-            Debug.Log("No more images");
-        }
-        else
-        {
-            images[imageIndex].SetActive(false);
-            imageIndex++;
-            images[imageIndex].SetActive(true);
-        }
+        GreenLine.SetActive(!GreenLine.activeSelf);
+        CenterLine.SetActive(!CenterLine.activeSelf);
     }
 
     public void previousImage()
@@ -191,7 +192,7 @@ public class displayObject : MonoBehaviour
         isFlashOneEye = !isFlashOneEye;
         if (isFlashOneEye)
         {
-            whiteImageR.SetActive(false);
+            whiteImageL.SetActive(false);
         }
     }
 }
