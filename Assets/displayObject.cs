@@ -6,7 +6,9 @@ public class displayObject : MonoBehaviour
 {
     [Header("Images")]
     [SerializeField] private GameObject[] images;
-    [SerializeField] private GameObject whiteImage;
+    [SerializeField] private GameObject whiteImageL;
+    [SerializeField] private GameObject whiteImageR;
+    [SerializeField] private GameObject blackScreen;
 
     [Header("Relative Transform")]
     [SerializeField] private Transform XROrigin;
@@ -20,6 +22,8 @@ public class displayObject : MonoBehaviour
     private int imageIndex;
     private bool isFlashing;
     private bool flashInstanceTracker;
+    private bool isOneEye;
+    private bool isFlashOneEye;
 
     // Enum for flashing toggle states
     public enum FlashingToggle
@@ -36,6 +40,8 @@ public class displayObject : MonoBehaviour
     {
         imageIndex = 0;
         isFlashing = false;
+        isOneEye = false;
+        isFlashOneEye = false;
 
         // Initialize images
         for (int i = 1; i < images.Length; i++)
@@ -43,7 +49,8 @@ public class displayObject : MonoBehaviour
             images[i].SetActive(false);
         }
         images[0].SetActive(true);
-        whiteImage.SetActive(false);
+        whiteImageL.SetActive(false);
+        blackScreen.SetActive(false);
     }
 
     void Update()
@@ -104,7 +111,11 @@ public class displayObject : MonoBehaviour
         if (!isFlashing)
         {
             images[imageIndex].SetActive(false);
-            whiteImage.SetActive(true);
+            whiteImageL.SetActive(true);
+            if (!isFlashOneEye)
+            {
+                whiteImageR.SetActive(true);
+            }
             isFlashing = true;
             flashingToggle = FlashingToggle.FlashingOn;
             StartCoroutine(flash());
@@ -113,7 +124,8 @@ public class displayObject : MonoBehaviour
         else
         {
             images[imageIndex].SetActive(true);
-            whiteImage.SetActive(false);
+            whiteImageL.SetActive(false);
+            whiteImageR.SetActive(false);
             isFlashing = false;
             flashingToggle = FlashingToggle.FlashingOff;
             StopCoroutine(flash());
@@ -128,10 +140,15 @@ public class displayObject : MonoBehaviour
         while (isFlashing)
         {
             yield return new WaitForSeconds(flashSpeed);
-            whiteImage.SetActive(!whiteImage.activeSelf);
+            whiteImageL.SetActive(!whiteImageL.activeSelf);
+            if (!isFlashOneEye)
+            {
+                whiteImageR.SetActive(!whiteImageL.activeSelf);
+            }
         }
         // on shutdown ensures that image returns to blank
-        whiteImage.SetActive(false);
+        whiteImageL.SetActive(false);
+        whiteImageR.SetActive(false);
     }
 
     // Methods to cycle through images
@@ -160,6 +177,21 @@ public class displayObject : MonoBehaviour
             images[imageIndex].SetActive(false);
             imageIndex--;
             images[imageIndex].SetActive(true);
+        }
+    }
+
+    public void toggleOneEye()
+    {
+        isOneEye = !isOneEye;
+        blackScreen.SetActive(isOneEye);
+    }
+
+    public void toggleOneEyeFlash()
+    {
+        isFlashOneEye = !isFlashOneEye;
+        if (isFlashOneEye)
+        {
+            whiteImageR.SetActive(false);
         }
     }
 }
