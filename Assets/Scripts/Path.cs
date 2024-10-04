@@ -24,8 +24,6 @@ namespace UnityEngine
         public displayObject displayObject;
 
         [SerializeField]
-        private float moveSpeed;
-        [SerializeField]
         private float rotationSpeed = 30f;
         [SerializeField]
         private float startThreshold = 0.1f;
@@ -33,7 +31,10 @@ namespace UnityEngine
         private string filePath;
         private string outputString;
         private Transform mainCameraTransform;
+        private float[] moveSpeed = { 1.579f, 1.817f, 1.649f, 1.466f, 1.237f, 1.209f, 1.306f, 1.728f, 1.277f, 1.335f, 1.581f, 1.741f, 1.459f, 1.361f, 1.763f, 1.822f, 1.402f, 1.853f, 1.457f, 1.864f, 1.245f, 1.758f, 1.082f, 1.843f, 1.691f };
+        private int speedIndex;
         private int pointsIndex;
+        private float tDelt;
         private bool toggleState = true;
         private bool isRotating = false;
         private static bool isMoving = true;
@@ -44,6 +45,7 @@ namespace UnityEngine
                 File.Delete(filePath);
             isMoving = false;
             previousMovingState = isMoving;
+            tDelt = 0;
             filePath = System.IO.Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("HH-mm-ss") + ".csv");
             Debug.Log("Filepath is: " + filePath);
             pointsIndex = 0;
@@ -51,6 +53,7 @@ namespace UnityEngine
             outputString = "";
             isRotating = false;
             toggleState = true;
+            speedIndex = 0;
             mainCameraTransform = GameObject.Find("XR Origin (XR Rig)/Camera Offset/Main Camera").transform;
             if (!mainCameraTransform)
             {
@@ -67,13 +70,19 @@ namespace UnityEngine
         // Update is called once per frame
         void Update()
         {
+            if (tDelt >= 3)
+            {
+                print("speed Changed");
+                tDelt = 0;
+                speedIndex = (speedIndex + 1) % moveSpeed.Length;
+            }
             if (pointsIndex <= Points.Length - 1)
             {
                 if (isMoving)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, Points[pointsIndex].transform.position, moveSpeed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, Points[pointsIndex].transform.position, moveSpeed[speedIndex] * Time.deltaTime);
                 }
-                
+
 
                 if (transform.position == Points[pointsIndex].transform.position)
                 {
@@ -129,7 +138,7 @@ namespace UnityEngine
                 File.WriteAllText(filePath, sb.ToString());
             else
                 File.AppendAllText(filePath, sb.ToString());
-
+            tDelt += Time.deltaTime;
 
         }
         private void OnDestroy()
