@@ -30,7 +30,7 @@ namespace UnityEngine
 
         private string filePath;
         private string outputString;
-        private Transform mainCameraTransform;
+        private GameObject mainCamera;
         private float[] moveSpeed = { 1.579f, 1.817f, 1.649f, 1.466f, 1.237f, 1.209f, 1.306f, 1.728f, 1.277f, 1.335f, 1.581f, 1.741f, 1.459f, 1.361f, 1.763f, 1.822f, 1.402f, 1.853f, 1.457f, 1.864f, 1.245f, 1.758f, 1.082f, 1.843f, 1.691f };
         private int speedIndex;
         private int pointsIndex;
@@ -38,12 +38,14 @@ namespace UnityEngine
         private bool toggleState = true;
         private bool isRotating = false;
         private static bool isMoving = true;
+        private Transform facing;
         private static bool previousMovingState = true;
         void Start()
         {
             if (File.Exists(filePath))
                 File.Delete(filePath);
             isMoving = false;
+            facing = this.transform.parent;
             previousMovingState = isMoving;
             tDelt = 0;
             filePath = System.IO.Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("HH-mm-ss") + ".csv");
@@ -54,8 +56,8 @@ namespace UnityEngine
             isRotating = false;
             toggleState = true;
             speedIndex = 0;
-            mainCameraTransform = GameObject.Find("XR Origin (XR Rig)/Camera Offset/Main Camera").transform;
-            if (!mainCameraTransform)
+            mainCamera = GameObject.Find("XR Origin (XR Rig)/Camera Offset/Main Camera");
+            if (!mainCamera)
             {
                 Debug.LogError("No camera found");
             }
@@ -70,6 +72,7 @@ namespace UnityEngine
         // Update is called once per frame
         void Update()
         {
+            this.transform.parent.LookAt(new Vector3(mainCamera.transform.position.x, facing.position.y, mainCamera.transform.position.z));
             if (tDelt >= 3)
             {
                 print("speed Changed");
@@ -103,11 +106,11 @@ namespace UnityEngine
 
             outputString = "";
 
-            float distance = Vector3.Distance(mainCameraTransform.position, this.transform.position);
+            float distance = Vector3.Distance(mainCamera.transform.position, this.transform.position);
             Debug.Log(distance);
             outputString += distance.ToString() + ',';
 
-            float distanceFromStart = Vector3.Distance(mainCameraTransform.position, pathStart.transform.position);
+            float distanceFromStart = Vector3.Distance(mainCamera.transform.position, pathStart.transform.position);
             if (distanceFromStart <= startThreshold)
             {
                 outputString += "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
