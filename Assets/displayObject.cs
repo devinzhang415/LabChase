@@ -113,19 +113,20 @@ public class displayObject : MonoBehaviour
         if (!isFlashing)
         {
 
-/*           if (!isFlashOneEye)
+            if (!isFlashOneEye)
             {
                 whiteImageL.SetActive(true);
                 whiteImageR.SetActive(false);
 
-            } else
+            }
+            else
             {
-                whiteImageL.SetActive(false);
+                whiteImageL.SetActive(true);
                 whiteImageR.SetActive(true);
-            }*/
+            }
             isFlashing = true;
             flashingToggle = FlashingToggle.FlashingOn;
-            StartCoroutine(flash());
+            // StartCoroutine(flash());
 
         }
         else
@@ -134,7 +135,7 @@ public class displayObject : MonoBehaviour
             whiteImageR.SetActive(false);
             isFlashing = false;
             flashingToggle = FlashingToggle.FlashingOff;
-            StopCoroutine(flash());
+            // StopCoroutine(flash());
 
         }
     }
