@@ -1944,7 +1944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8078140191319082428, guid: 7604f37f102eaa840b8442a256fff8b7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2138,7 +2138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1503790899
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2589,6 +2589,10 @@ PrefabInstance:
       propertyPath: whiteImageR
       value: 
       objectReference: {fileID: 124033928}
+    - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
+      propertyPath: scaleMagnitude
+      value: 1.005
+      objectReference: {fileID: 0}
     - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
       propertyPath: images.Array.size
       value: 2
