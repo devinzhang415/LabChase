@@ -2542,6 +2542,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 124033928}
     - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
+      propertyPath: scaleMagnitude
+      value: 1.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514983420940035944, guid: 88353dda8b1e1744ebbae5307316685e, type: 3}
       propertyPath: images.Array.size
       value: 2
       objectReference: {fileID: 0}

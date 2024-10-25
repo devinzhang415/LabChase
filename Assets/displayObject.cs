@@ -17,7 +17,7 @@ public class displayObject : MonoBehaviour
     [Header("Choose a magnitude of Movement")]
     [SerializeField] private int movementMagnitude = 1;
     [Header("Choose a magnitude of scale")]
-    [SerializeField] private float scaleMagnitude = 1f;
+    [SerializeField] private float scaleMagnitude = 1.1f;
     [SerializeField] private float flashSpeed = 0.01f;
 
     private Vector3 changeVector;
