@@ -35,6 +35,7 @@ namespace UnityEngine
         private int speedIndex;
         private int pointsIndex;
         private float tDelt;
+        private float csvTimer;
         private bool toggleState = true;
         private bool isRotating = false;
         private static bool isMoving = true;
@@ -48,6 +49,7 @@ namespace UnityEngine
             facing = this.transform;
             previousMovingState = isMoving;
             tDelt = 0;
+            csvTimer = 0;
             filePath = System.IO.Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("HH-mm-ss") + ".csv");
             Debug.Log("Filepath is: " + filePath);
             pointsIndex = 0;
@@ -105,45 +107,49 @@ namespace UnityEngine
                 pathParent.transform.Rotate(Vector3.up, rotationAmount);
             }
 
-            outputString = "";
-
-            float distance = Vector3.Distance(mainCamera.transform.position, this.transform.position);
-            Debug.Log(distance);
-            outputString += distance.ToString() + ',';
-
-            float distanceFromStart = Vector3.Distance(mainCamera.transform.position, pathStart.transform.position);
-            if (distanceFromStart <= startThreshold)
+            csvTimer += Time.deltaTime;
+            if (csvTimer >= 0.05f) // 1/20th of a second
             {
-                outputString += "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
-            }
+                outputString = "";
+
+                float distance = Vector3.Distance(mainCamera.transform.position, this.transform.position);
+                Debug.Log(distance);
+                outputString += distance.ToString() + ',';
+
+                float distanceFromStart = Vector3.Distance(mainCamera.transform.position, pathStart.transform.position);
+                if (distanceFromStart <= startThreshold)
+                {
+                    outputString += "Within start thresh " + System.DateTime.Now.ToString("HH-mm-ss") + ',';
+                }
 
 
-            if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOn)
-            {
-                outputString += "Flashing On" + ',';
-                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
-            }
-            else if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOff)
-            {
-                outputString += "Flashing Off" + ',';
-                displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
-            }
-            if (isMoving != previousMovingState)
-            {
-                //if the moving state has changed then add it to the output string
-                outputString += (isMoving) ? "Start" : "Stop";
-                previousMovingState = isMoving;
-            }
-            //only executes this part of the code when outside of yth
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(outputString);
+                if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOn)
+                {
+                    outputString += "Flashing On" + ',';
+                    displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
+                }
+                else if (displayObject.flashingToggle == displayObject.FlashingToggle.FlashingOff)
+                {
+                    outputString += "Flashing Off" + ',';
+                    displayObject.flashingToggle = displayObject.FlashingToggle.NoToggle;
+                }
+                if (isMoving != previousMovingState)
+                {
+                    //if the moving state has changed then add it to the output string
+                    outputString += (isMoving) ? "Start" : "Stop";
+                    previousMovingState = isMoving;
+                }
+                //only executes this part of the code when outside of yth
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(outputString);
 
-            if (!File.Exists(filePath))
-                File.WriteAllText(filePath, sb.ToString());
-            else
-                File.AppendAllText(filePath, sb.ToString());
-            
+                if (!File.Exists(filePath))
+                    File.WriteAllText(filePath, sb.ToString());
+                else
+                    File.AppendAllText(filePath, sb.ToString());
 
+                csvTimer = 0; // Reset timer after writing
+            }
         }
         private void OnDestroy()
         {
